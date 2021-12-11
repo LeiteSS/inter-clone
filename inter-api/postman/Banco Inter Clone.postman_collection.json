@@ -1,0 +1,203 @@
+{
+	"info": {
+		"_postman_id": "34b119d4-28ef-4b20-9dfb-2f5403294a0b",
+		"name": "Banco Inter Clone",
+		"description": "Aplicação que simula as transações de receber e pagar clientes do banco Inter através do PIX.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "User",
+			"item": [
+				{
+					"name": "Sign In",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"silas@leite.com\",\r\n    \"password\": \"mega_senha\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3333/user/signin",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3333",
+							"path": [
+								"user",
+								"signin"
+							]
+						},
+						"description": "Logar-se na aplicação usando o email e a senha cadastrada."
+					},
+					"response": []
+				},
+				{
+					"name": "Sign Up",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"firstName\": \"Usuario\",\r\n    \"lastName\": \"X\",\r\n    \"wallet\": 500.00,\r\n    \"email\": \"x@email.com\",\r\n    \"password\": \"1234\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3333/user/signup",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3333",
+							"path": [
+								"user",
+								"signup"
+							]
+						},
+						"description": "Se cadastrar na aplicação usando o nome, ultimo nome, email, senha e um valor inicial."
+					},
+					"response": []
+				},
+				{
+					"name": "Me",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmaXJzdE5hbWUiOiJVc3VhcmlvIiwibGFzdE5hbWUiOiJYIiwiYWNjb3VudE51bWJlciI6MTA5MTAyLCJhY2NvdW50RGlnaXQiOjk2LCJ3YWxsZXQiOjUwMCwiaWF0IjoxNjM5MDYxODU1LCJleHAiOjE2NDAyNzE0NTUsInN1YiI6IjlmY2RhMWY2LWY0MGMtNGM3Zi1hODZhLWQxNTEyNjU0YmQxMSJ9.3mkoBARTDyY_RKfHldspWcmz7vNpLo_WU-vRbIOzvjM",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:3333/user/me",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3333",
+							"path": [
+								"user",
+								"me"
+							]
+						},
+						"description": "Obter os dados do usuario logado."
+					},
+					"response": []
+				}
+			],
+			"description": "Pasta que possui as requisições do usuario: logar ou se cadastrar, assim como obter os dados de um usuario cadastrado usando o seu token de acesso."
+		},
+		{
+			"name": "PIX",
+			"item": [
+				{
+					"name": "Request",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmaXJzdE5hbWUiOiJzaWxhcyIsImxhc3ROYW1lIjoibGVpdMOjbyIsImFjY291bnROdW1iZXIiOjYxNDk2OCwiYWNjb3VudERpZ2l0IjozOSwid2FsbGV0IjowLCJpYXQiOjE2MzkwNjA3NzIsImV4cCI6MTY0MDI3MDM3Miwic3ViIjoiNGFiNWNkOGUtMzg0Ny00MjNjLWI0MWItMmViYjdiNWIyNmY0In0.3a90kIvH6o3iJBzVfVnmavASdnJ0aOclyYbawXwc2eI",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"value\": 500.00\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3333/pix/request",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3333",
+							"path": [
+								"pix",
+								"request"
+							]
+						},
+						"description": "Requisição para receber um pix: dado um valor um codigo é gerado (referência ao QR Code) e esse codigo deve ser dado para a pessoa que irá pagar o usuario que gerou esse codigo."
+					},
+					"response": []
+				},
+				{
+					"name": "Pay",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmaXJzdE5hbWUiOiJzaWxpbmhhcyIsImxhc3ROYW1lIjoibGVpdGluaG8iLCJhY2NvdW50TnVtYmVyIjo3NDYzMjAsImFjY291bnREaWdpdCI6NDksIndhbGxldCI6MCwiaWF0IjoxNjM5MDYxMzA3LCJleHAiOjE2NDAyNzA5MDcsInN1YiI6IjczYTllYmJlLTNlZDUtNDc2MS05OWNjLWMwYTA5NGEyODYxYyJ9.b6-LsKEo4C0_AB70l5T8rzMjnXoC6zuk4q9-jDH-PY0",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:3333/pix/pay/NGFiNWNkOGUtMzg0Ny00MjNjLWI0MWItMmViYjdiNWIyNmY0-NTAw-OGFhMmNkMTMtZDE4Yy00OWFjLWIwM2YtYzczMzM5ZWNiNmI0",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3333",
+							"path": [
+								"pix",
+								"pay",
+								"NGFiNWNkOGUtMzg0Ny00MjNjLWI0MWItMmViYjdiNWIyNmY0-NTAw-OGFhMmNkMTMtZDE4Yy00OWFjLWIwM2YtYzczMzM5ZWNiNmI0"
+							]
+						},
+						"description": "Dado o codigo, a conta do usuario **pagante** irá subtrair o valor que o **recebedor** determinou ao gerar o codigo PIX. O **recebedor** não pode ser também o **pagante**."
+					},
+					"response": []
+				},
+				{
+					"name": "Transactions",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmaXJzdE5hbWUiOiJzaWxpbmhhcyIsImxhc3ROYW1lIjoibGVpdGluaG8iLCJhY2NvdW50TnVtYmVyIjo3NDYzMjAsImFjY291bnREaWdpdCI6NDksIndhbGxldCI6MCwiaWF0IjoxNjM5MDYxMzA3LCJleHAiOjE2NDAyNzA5MDcsInN1YiI6IjczYTllYmJlLTNlZDUtNDc2MS05OWNjLWMwYTA5NGEyODYxYyJ9.b6-LsKEo4C0_AB70l5T8rzMjnXoC6zuk4q9-jDH-PY0",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:3333/pix/transactions",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3333",
+							"path": [
+								"pix",
+								"transactions"
+							]
+						},
+						"description": "Lista todas as transações realizadas: de pagamento ou recebimento."
+					},
+					"response": []
+				}
+			],
+			"description": "Pasta com todas as requisições para realizar as transações PIX."
+		}
+	]
+}
